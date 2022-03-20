@@ -1,24 +1,44 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, KeyboardAvoidingView, TouchableOpacity, Platform, TextInput } from 'react-native';
+import React, {useState} from 'react';
+import { StyleSheet, Text, View, KeyboardAvoidingView, TouchableOpacity, Platform, TextInput, Keyboard} from 'react-native';
 import Task from './components/Tasks';
 
 export default function App() {
+
+  const [task, setTask] = useState();
+  const [taskItems, setTaskItems] = useState([]);
+
+  const handleAddTask =  () => {
+    Keyboard.dismiss();
+    setTaskItems([...taskItems, task])
+    setTask(null);
+  }
+
+  const completeTask = (index) => {
+    let itemsCopy = [...taskItems];
+    itemsCopy.splice(index, 1);
+    setTaskItems(itemsCopy);
+  }
+
   return (
     <View style={styles.container}>
       {/* Todays task */}
       <View style={styles.taskWrapper}>
         <Text style={styles.sectionTitle}>Today's Tasks ⛳</Text>
         <View style={styles.items}>
-          <Task text={'task 1'}/>
-          <Task text={'task 2'}/>
-          <Task text={'task 3'}/>
-          <Task text={'task 4'}/>
-          <Task text={'task 5'}/>
+          {taskItems.map((item, index) => {
+            return (
+              <TouchableOpacity key={index} onPress={() => completeTask(index)}>
+                <Task text={item}/>
+              </TouchableOpacity>
+            );
+            <Task key={index} text={item}/>
+          })}
         </View>
       </View>
       <KeyboardAvoidingView behaviour={Platform.OS === "ios" ? "padding" : "height"} style={styles.writeTaskWrapper}>
-        <TextInput style={styles.input} placeholder={"Write a task here !"}></TextInput>
-        <TouchableOpacity>
+        <TextInput style={styles.input} placeholder={"Write a task here !"} value={task} onChangeText={text => setTask(text)}></TextInput>
+        <TouchableOpacity onPress={() => handleAddTask()}>
           <View style={styles.addWrapper}>
             <Text style={styles.addText}>+</Text>
           </View>
