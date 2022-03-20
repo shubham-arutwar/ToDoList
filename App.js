@@ -7,13 +7,13 @@ export default function App() {
     <View style={styles.container}>
       {/* Todays task */}
       <View style={styles.taskWrapper}>
-        <Text style={styles.sectionTitle}>Today's Task</Text>
+        <Text style={styles.sectionTitle}>Today's Tasks ⛳</Text>
         <View style={styles.items}>
-          <Task text={'task 1'} />
-          <Task />
-          <Task />
-          <Task />
-          <Task />
+          <Task text={'task 1'}/>
+          <Task text={'task 2'}/>
+          <Task text={'task 3'}/>
+          <Task text={'task 4'}/>
+          <Task text={'task 5'}/>
         </View>
       </View>
     </View>
@@ -33,5 +33,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
   },
-  items: {},
+  items: {
+    marginTop: 30,
+  },
 });

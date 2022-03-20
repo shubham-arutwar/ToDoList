@@ -36,8 +36,16 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         marginRight: 15,
     },
-    text: {},
-    circle: {},
+    text: {
+        maxWidth: '80%',
+    },
+    circle: {
+        width: 12,
+        height: 12,
+        borderColor: '#55BCF6',
+        borderWidth: 2,
+        borderRadius: 5,
+    },
 
 })
 
