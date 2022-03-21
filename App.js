@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {useState} from 'react';
-import { StyleSheet, Text, View, KeyboardAvoidingView, TouchableOpacity, Platform, TextInput, Keyboard} from 'react-native';
+import { StyleSheet, Text, View, KeyboardAvoidingView, TouchableOpacity, Platform, TextInput, Keyboard, Alert} from 'react-native';
 import Task from './components/Tasks';
 
 export default function App() {
@@ -33,11 +33,16 @@ export default function App() {
         <View style={styles.items}>
           {taskItems.map((item, index) => {
             return (
-              <TouchableOpacity key={index} onPress={() => completeTask(index)}>
-                <Task text={item}/>
+              <TouchableOpacity key={index} onPress={() => Alert.alert("Task completed", "Do you want to delete task?",[
+                {text: "yes", onPress: () => completeTask(index)},
+                {text: "No", onPress: () => console.log("task not deleted")},
+                ])
+                }>
+              {/* <TouchableOpacity key={index} onPress={() => completeTask(index)}>     */}
+                <Task text={item}></Task>
               </TouchableOpacity>
             );
-            <Task key={index} text={item}/>
+            <Task key={index} text={item}></Task>
           })}
         </View>
       </View>
