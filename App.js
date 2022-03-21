@@ -10,8 +10,13 @@ export default function App() {
 
   const handleAddTask =  () => {
     Keyboard.dismiss();
-    setTaskItems([...taskItems, task])
-    setTask(null);
+    if (task == null) {
+      console.log("empty string");
+    }
+    else {
+      setTaskItems([...taskItems, task])
+      setTask(null);
+    }
   }
 
   const completeTask = (index) => {
@@ -38,7 +43,7 @@ export default function App() {
       </View>
       <KeyboardAvoidingView behaviour={Platform.OS === "ios" ? "padding" : "height"} style={styles.writeTaskWrapper}>
         <TextInput style={styles.input} placeholder={"Write a task here !"} value={task} onChangeText={text => setTask(text)}></TextInput>
-        <TouchableOpacity onPress={() => handleAddTask()}>
+        <TouchableOpacity onPressIn={() => handleAddTask()}>
           <View style={styles.addWrapper}>
             <Text style={styles.addText}>+</Text>
           </View>
@@ -67,31 +72,38 @@ const styles = StyleSheet.create({
   },
   writeTaskWrapper: {
     position: 'absolute',
-    bottom: 60,
+    height: 50,
+    bottom: 0,
+    backgroundColor:'#fff',
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
   },
   input: {
-    paddingVertical: 15,
-    width: 270,
+    paddingVertical: 0,
+    // width: 270,
     paddingHorizontal: 30,
-    backgroundColor: '#fff',
-    borderRadius: 60,
+    width: '100%',
+    height: '100%',
+    borderRadius: 0,
     borderColor: '#C0C0C0',
-    borderWidth: 1,
+    borderWidth: 0,
   },
   addWrapper: {
+    right: 10,
+    bottom: 3,
     width: 60,
     height: 60,
-    backgroundColor: '#fff',
     borderRadius: 60,
     borderColor: '#C0C0C0',
-    borderWidth: 1,
+    borderWidth: 0,
     justifyContent: 'center',
     alignItems: 'center',
   },
   addText: {
+    fontSize: 40,
+    color: '#55BCF6',
+    opacity: 0.8,
   },
 });
