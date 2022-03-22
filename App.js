@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {useState} from 'react';
-import { StyleSheet, Text, View, KeyboardAvoidingView, TouchableOpacity, Platform, TextInput, Keyboard, Alert} from 'react-native';
+import { StyleSheet, Text, View, KeyboardAvoidingView, TouchableOpacity, Platform, TextInput, Keyboard, Alert, ScrollView} from 'react-native';
 import Task from './components/Tasks';
 
 export default function App() {
@@ -23,6 +23,10 @@ export default function App() {
     }
   }
 
+  const testScroll = () => {
+      setTaskItems([...taskItems, "example task"]);
+  }
+
   const completeTask = (index) => {
     let itemsCopy = [...taskItems];
     itemsCopy.splice(index, 1);
@@ -33,7 +37,12 @@ export default function App() {
     <View style={styles.container}>
       {/* Todays task */}
       <View style={styles.taskWrapper}>
-        <Text style={styles.sectionTitle}>Today's Tasks ⛳</Text>
+        <TouchableOpacity onPressIn={() => testScroll()}>
+          <View>
+           <Text style={styles.sectionTitle}>Today's Tasks ⛳</Text>
+          </View>
+        </TouchableOpacity>
+        <ScrollView fadingEdgeLength={100} style={styles.scrollbar}>
         <View style={styles.items}>
           {taskItems.map((item, index) => {
             return (
@@ -42,13 +51,13 @@ export default function App() {
                 {text: "No", onPress: () => console.log("task not deleted")},
                 ])
                 }>
-              {/* <TouchableOpacity key={index} onPress={() => completeTask(index)}>     */}
-                <Task text={item}></Task>
+                  <Task text={item}></Task>
               </TouchableOpacity>
             );
             <Task key={index} text={item}></Task>
           })}
         </View>
+        </ScrollView>
       </View>
       <KeyboardAvoidingView behaviour={Platform.OS === "ios" ? "padding" : "height"} style={styles.writeTaskWrapper}>
         <TextInput style={styles.input} placeholder={"Write a task here !"} value={task} onChangeText={text => setTask(text)}></TextInput>
@@ -69,15 +78,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#E8EAED',
   },
   taskWrapper: {
-    paddingTop: 80,
+    marginBottom: 60,
+    paddingVertical: 80,
     paddingHorizontal: 20,
   },
   sectionTitle: {
     fontSize: 24,
     fontWeight: 'bold',
+    marginBottom: 30,
   },
   items: {
-    marginTop: 30,
     width: '100%',
   },
   writeTaskWrapper: {
@@ -116,4 +126,7 @@ const styles = StyleSheet.create({
     color: '#55BCF6',
     opacity: 0.8,
   },
+  scrollbar: {
+    
+  }
 });
