@@ -8,6 +8,10 @@ export default function App() {
   const [task, setTask] = useState();
   const [taskItems, setTaskItems] = useState([]);
 
+  const checkText = () => {
+    text => setTask(text);
+  }
+
   const handleAddTask =  () => {
     Keyboard.dismiss();
     if (task == null) {
@@ -74,10 +78,11 @@ const styles = StyleSheet.create({
   },
   items: {
     marginTop: 30,
+    width: '100%',
   },
   writeTaskWrapper: {
     position: 'absolute',
-    height: 50,
+    height: 60,
     bottom: 0,
     backgroundColor:'#fff',
     width: '100%',
